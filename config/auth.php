@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\UsersFilament;
+
 return [
 
     /*
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'filament' => [
+            'driver' => 'session',
+            'provider' => 'users-filament',
+        ],
     ],
 
     /*
@@ -64,7 +70,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
+        'users-filament' => [
+            'driver' => 'eloquent',
+            'model' => UsersFilament::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
