@@ -23,6 +23,7 @@ use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -88,7 +89,13 @@ class UserResource extends Resource
                     ->sortable(),
             ])->defaultSort('id', 'desc')
             ->filters([
-                //
+                SelectFilter::make('status')
+                ->options([
+                    0 => 'Blocked',
+                    1 => 'Active',
+                ])
+
+
             ])
             ->actions([
                 ViewAction::make()->iconButton(),
