@@ -20,6 +20,9 @@ jobs:
       - name: Generate Key
         run: php artisan key:generate
 
+      - name:  Migrate
+        run: php artisan migrate
+        
       - name: install dependencies
         run: pnpm install
 
