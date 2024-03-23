@@ -27,6 +27,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
@@ -59,6 +60,8 @@ class UserResource extends Resource
                             ->email()
                             ->columnSpan(7)
                             ->required(),
+                        DateTimePicker::make('email_verified_a')
+                            ->columnSpan(7),
                         TextInput::make('password')
                             ->password()
                             ->autocomplete('new-password')
