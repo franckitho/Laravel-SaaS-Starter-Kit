@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UsersFilament;
+use App\Models\UserFilament;
 
 return [
 
@@ -72,7 +72,7 @@ return [
         ],
         'users-filament' => [
             'driver' => 'eloquent',
-            'model' => UsersFilament::class,
+            'model' => UserFilament::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
