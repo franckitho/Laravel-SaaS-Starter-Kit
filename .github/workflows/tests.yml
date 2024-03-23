@@ -38,6 +38,9 @@ jobs:
       - name: Permissions
         run: chmod -R 777 *
 
+      - name: Create Pest Report Directory
+        run: mkdir -p pest-report
+
       - name: Tests
         run: ./vendor/bin/pest --compact --group=feature --testdox-text="pest-report/testdox.txt" --log-events-text="pest-report/events.txt"
 
