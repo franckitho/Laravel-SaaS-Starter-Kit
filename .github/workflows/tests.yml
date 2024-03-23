@@ -34,7 +34,8 @@ jobs:
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v2
-        if: always()
+        if: failure()
         with:
           name: test-results
           path: ./tests/Reports/
+          if-no-files-found: ignore
