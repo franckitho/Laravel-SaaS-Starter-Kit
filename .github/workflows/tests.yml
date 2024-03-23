@@ -31,3 +31,10 @@ jobs:
 
       - name: Tests
         run: ./vendor/bin/pest --compact --group=feature
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: test-results
+          path: ./tests/Reports/
