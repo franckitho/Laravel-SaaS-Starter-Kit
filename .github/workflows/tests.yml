@@ -23,6 +23,7 @@ jobs:
       - name: Setup Database
         run: |
           echo "DB_CONNECTION=sqlite" >> .env
+          echo "APP_DEBUG=true" >> .env
           echo "DB_DATABASE=./database/testing.sqlite" >> .env
           touch ./database/testing.sqlite
 
