@@ -85,7 +85,7 @@ class UserResource extends Resource
                 TextColumn::make('updated_at')
                     ->label('Updated')
                     ->sortable(),
-            ])
+            ])->defaultSort('id', 'desc')
             ->filters([
                 //
             ])
