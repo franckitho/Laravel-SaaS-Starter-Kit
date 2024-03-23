@@ -44,6 +44,7 @@ class UserResource extends Resource
     protected static ?string $recordTitleAttribute = 'name'; 
     
     protected static ?string $navigationGroup = 'Users Management';
+    
 
     public static function form(Form $form): Form
     {
@@ -60,7 +61,7 @@ class UserResource extends Resource
                             ->email()
                             ->columnSpan(7)
                             ->required(),
-                        DateTimePicker::make('email_verified_a')
+                        DateTimePicker::make('email_verified_at')
                             ->columnSpan(7),
                         TextInput::make('password')
                             ->password()
@@ -161,6 +162,7 @@ class UserResource extends Resource
             SectionComponent::make([
                 TextEntry::make('id'),
                 TextEntry::make('name'),
+                TextEntry::make('email'),
                 IconEntry::make('status')->boolean(),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
