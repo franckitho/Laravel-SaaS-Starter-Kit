@@ -6,11 +6,11 @@ use App\Filament\Resources\UserResource;
 use Filament\Tables\Actions\DeleteAction;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 
-it('can render page', function () {
+test('can render page', function () {
     livewire(ListUsers::class)->assertSuccessful();
 });
 
-it('can render page with data', function () {
+test('can render page with data', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
@@ -18,7 +18,7 @@ it('can render page with data', function () {
         ->assertSee($user->email);
 });
 
-it('can render page with data and search', function () {
+test('can render page with data and search', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
@@ -27,7 +27,7 @@ it('can render page with data and search', function () {
         ->assertSee($user->email);
 });
 
-it('can render page with data and search and sort', function () {
+test('can render page with data and search and sort', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
@@ -37,7 +37,7 @@ it('can render page with data and search and sort', function () {
         ->assertSee($user->email);
 });
 
-it('can render page with data and search and sort and filter', function () {
+test('can render page with data and search and sort and filter', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
@@ -49,7 +49,7 @@ it('can render page with data and search and sort and filter', function () {
 });
 
 
-it('can render page with data and search and sort and filter and pagination', function () {
+test('can render page with data and search and sort and filter and pagination', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
@@ -61,7 +61,7 @@ it('can render page with data and search and sort and filter and pagination', fu
         ->assertSee($user->email);
 });
 
-it('can delete user', function () {
+test('can delete user', function () {
     $user = User::factory()->create();
  
     livewire(UserResource\Pages\ListUsers::class)
@@ -70,7 +70,7 @@ it('can delete user', function () {
     $this->assertModelMissing($user);
 });
 
-it('can block user', function () {
+test('can block user', function () {
     $user = User::factory()->create(['status' => 1]);
  
     livewire(UserResource\Pages\ListUsers::class)
@@ -81,7 +81,7 @@ it('can block user', function () {
     $this->assertEquals(0, $user->status);
 });
 
-it('can unblock user', function () {
+test('can unblock user', function () {
     $user = User::factory()->create(['status' => 0]);
  
     livewire(UserResource\Pages\ListUsers::class)
