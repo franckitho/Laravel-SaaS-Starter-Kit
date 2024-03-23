@@ -5,7 +5,8 @@ on: ["push", "pull_request"]
 jobs:
   feature:
     runs-on: ubuntu-latest
-
+    container:
+      image: lorisleiva/laravel-docker:7.4
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -26,8 +27,11 @@ jobs:
       - name: Generate Key
         run: php artisan key:generate
 
-      - name: Run Migrations
-        run: php artisan migrate
+      - name: install dependencies
+        run: pnpm install
+
+      - name: Build javascript
+        run: pnpm build
 
       - name: Tests
         run: ./vendor/bin/pest --compact --group=feature
