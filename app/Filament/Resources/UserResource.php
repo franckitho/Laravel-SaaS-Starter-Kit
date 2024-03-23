@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -93,6 +94,12 @@ class UserResource extends Resource
                 ViewAction::make()->iconButton(),
                 EditAction::make()->iconButton()->color('gray'),
                 ActionGroup::make([
+                    Action::make('Login as user')
+                        ->url(fn (User $record) => route('login-as-user', $record))
+                        ->color('gray')
+                        ->extraAttributes([
+                            'target' => '_blank',
+                        ]),
                     Action::make('Block user') 
                         ->action(function (User $record){
                             $record->status = 0;
