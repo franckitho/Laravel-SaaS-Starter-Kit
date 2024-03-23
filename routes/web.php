@@ -5,6 +5,7 @@ use App\Actions\LoginAsUserAction;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\AuthFilament;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -24,7 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::middleware(AuthFilament::class)->group(function () {
+    Route::get('/filament/login-as/{user}', LoginAsUserAction::class)->name('login-as-user');
+});
 
-Route::get('/filament/login-as/{user}', LoginAsUserAction::class)->name('login-as-user');
 
 require __DIR__.'/auth.php';
