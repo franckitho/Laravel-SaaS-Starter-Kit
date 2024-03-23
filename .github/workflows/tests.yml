@@ -39,12 +39,12 @@ jobs:
         run: chmod -R 777 *
 
       - name: Tests
-        run: ./vendor/bin/pest --compact --group=feature --log-junit="pest-xml/report.xml"
+        run: ./vendor/bin/pest --compact --group=feature --testdox-text="pest-report/testdox.txt" --log-events-text="pest-report/events.txt"
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: test-results
-          path: .pest-xml/
+          path: .pest-report/
           if-no-files-found: ignore
