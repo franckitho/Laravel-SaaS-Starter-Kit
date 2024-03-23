@@ -23,7 +23,6 @@ jobs:
       - name: Setup Database
         run: |
           echo "DB_CONNECTION=sqlite" >> .env
-          echo "APP_DEBUG=true" >> .env
           echo "DB_DATABASE=./database/testing.sqlite" >> .env
           touch ./database/testing.sqlite
 
@@ -35,6 +34,9 @@ jobs:
 
       - name: Build javascript
         run: pnpm build
+
+      - name: Print Vite Manifest
+        run: cat public/build/manifest.json
 
       - name: Permissions
         run: chmod -R 777 *
