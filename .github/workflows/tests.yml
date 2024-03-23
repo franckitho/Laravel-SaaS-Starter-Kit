@@ -20,6 +20,12 @@ jobs:
       - name: Generate Key
         run: php artisan key:generate
 
+      - name: Setup Database
+        run: |
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=/app/database.sqlite" >> .env
+          touch ./database/testing.sqlite
+
       - name:  Migrate
         run: php artisan migrate
         
