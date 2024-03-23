@@ -26,5 +26,8 @@ jobs:
       - name: Build javascript
         run: pnpm build
 
+      - name: Permissions
+        run: chmod -R 777 *
+
       - name: Tests
         run: ./vendor/bin/pest --compact --group=feature
