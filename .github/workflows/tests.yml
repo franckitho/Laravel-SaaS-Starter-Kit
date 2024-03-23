@@ -47,5 +47,5 @@ jobs:
         if: failure()
         with:
           name: test-results
-          path: ./tests/Reports/
+          path: ./storage/logs/
           if-no-files-found: ignore
