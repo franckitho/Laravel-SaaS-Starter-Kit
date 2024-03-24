@@ -24,7 +24,7 @@ jobs:
 
     - name: Install node dependencies
       run: |
-        pnpm install
+        npm install -g pnpm && pnpm install
 
     - name: Build assets
       run: |
