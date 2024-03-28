@@ -5,13 +5,13 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Actions;
 use Filament\Actions\Action;
-use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Pages\Actions\RestoreAction;
+use Filament\Pages\Actions\ForceDeleteAction;
 
 class EditUser extends EditRecord
 {
@@ -44,7 +44,9 @@ class EditUser extends EditRecord
                     ->requiresConfirmation()
                     ->hidden(fn (User $record) => $record->status === 1)
                     ->color('danger'),
-                DeleteAction::make()->icon(null)
+                DeleteAction::make()->icon(null),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
             ])->color('gray'),
         ];
     }

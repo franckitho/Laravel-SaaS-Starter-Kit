@@ -2,36 +2,40 @@
 
 namespace App\Filament\Resources;
 
+use DateTime;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
-use Tables\Columns\Text;
 use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Checkbox;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\Split;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\RestoreAction;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\UserResource\Pages;
+use Filament\Tables\Actions\ForceDeleteAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
 use Filament\Infolists\Components\Section as SectionComponent;
+use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
 class UserResource extends Resource
 {
@@ -97,15 +101,38 @@ class UserResource extends Resource
                 TextColumn::make('updated_at')
                     ->label('Updated')
                     ->sortable(),
+                IconColumn::make('deleted_at')
+                    ->label('')
+                    ->icon(fn (User $user): string => $user->deleted_at === null ? '' : 'heroicon-o-trash')
+                    ->color('danger')
+                    ->wrap()
+                    ->sortable(),
             ])->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('status')
                 ->options([
                     0 => 'Blocked',
                     1 => 'Active',
-                ])
-
-
+                ]),
+                Filter::make('deleted_at')
+                    ->form([
+                        Radio::make('deleted_at')
+                        ->options([
+                            null => 'Show all users',
+                            'with_deleted' => 'Show only deleted users',
+                            'without_deleted' => 'Hide deleted users'
+                        ])
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if($data['deleted_at'] == 'with_deleted')
+                        {
+                            return $query->onlyTrashed();
+                        }elseif($data['deleted_at'] == 'without_deleted')
+                        {
+                            return $query->withoutTrashed();
+                        }
+                        return $query;
+                    })
             ])
             ->actions([
                 ViewAction::make()->iconButton(),
@@ -130,7 +157,7 @@ class UserResource extends Resource
                                 ->icon('heroicon-o-check-circle'),
                         )
                         ->requiresConfirmation()
-                        ->hidden(fn (User $record) => $record->status === 0)
+                        ->hidden(fn (User $record) => !$record->status)
                         ->color('danger'),
                     Action::make('Unblock user') 
                         ->action(function (User $record){
@@ -144,17 +171,30 @@ class UserResource extends Resource
                                 ->body('The user has been unblocked successfully.'),
                         ) 
                         ->requiresConfirmation()
-                        ->hidden(fn (User $record) => $record->status === 1)
+                        ->hidden(fn (User $record) => $record->status)
                         ->color('danger'),
-                    DeleteAction::make()->icon(null)
+                    DeleteAction::make()->icon(null),
+                    ForceDeleteAction::make()->icon(null),
+                    RestoreAction::make()->icon(null)
                 ])->color('gray'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
