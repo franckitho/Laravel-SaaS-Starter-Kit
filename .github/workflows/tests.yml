@@ -55,7 +55,7 @@ jobs:
           path: vendor
           key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
       - name: Copy .env
-        run: cp .env.ci .env"
+        run: cp .env.ci .env
       - name: I nstall Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
