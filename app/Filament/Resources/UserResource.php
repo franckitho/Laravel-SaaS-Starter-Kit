@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use DateTime;
-use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -13,9 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Radio;
-use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Checkbox;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
@@ -23,19 +19,18 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\UserResource\Pages;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Components\Section as SectionComponent;
-use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
 class UserResource extends Resource
 {
@@ -49,7 +44,7 @@ class UserResource extends Resource
     
     protected static ?string $navigationGroup = 'Users Management';
     
-
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -71,8 +66,7 @@ class UserResource extends Resource
                             ->password()
                             ->autocomplete('new-password')
                             ->revealable()
-                            ->columnSpan(7)
-                            ->required(),
+                            ->columnSpan(7),
                     ])
                     ->columns(12)
                     ->columnSpanFull(),
@@ -208,8 +202,13 @@ class UserResource extends Resource
                 TextEntry::make('updated_at'),
             ]),
             SectionComponent::make([
-                
+                ViewEntry::make('')
+                    ->view('infolists.components.user-role')
             ]),
+            SectionComponent::make([
+                ViewEntry::make('')
+                    ->view('infolists.components.user-permission')
+            ])
         ]);
     }
     public static function getRelations(): array

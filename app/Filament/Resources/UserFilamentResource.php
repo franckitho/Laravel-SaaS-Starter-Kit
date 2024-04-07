@@ -6,12 +6,11 @@ use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\UserFilament;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use App\Models\Filament\UserFilament;
 use Filament\Forms\Components\Section;
-use Filament\Infolists\Components\Section as SectionComponent;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
@@ -23,9 +22,11 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserFilamentResource\Pages;
+use Filament\Infolists\Components\Section as SectionComponent;
 use App\Filament\Resources\UserFilamentResource\RelationManagers;
 
 class UserFilamentResource extends Resource
@@ -38,7 +39,7 @@ class UserFilamentResource extends Resource
 
     protected static ?string $modelLabel = 'Users filament';
 
-    protected static ?string $recordTitleAttribute = 'name'; 
+    protected static ?string $recordTitleAttribute = 'name';
     
     protected static ?string $navigationGroup = 'Users Management';
 
@@ -117,8 +118,13 @@ class UserFilamentResource extends Resource
                 TextEntry::make('updated_at'),
             ]),
             SectionComponent::make([
-                
+                ViewEntry::make('')
+                    ->view('infolists.components.user-filament-role')
             ]),
+            SectionComponent::make([
+                ViewEntry::make('')
+                    ->view('infolists.components.user-filament-permission')
+            ])
         ]);
     }
     public static function getRelations(): array

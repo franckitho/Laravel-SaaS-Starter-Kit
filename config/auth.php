@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\UserFilament;
+use App\Models\User;
+use App\Models\Filament\UserFilament;
 
 return [
 
@@ -68,7 +69,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', User::class),
         ],
         'users-filament' => [
             'driver' => 'eloquent',
