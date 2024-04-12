@@ -19,15 +19,23 @@ jobs:
       run: |
         cp .env.ci .env
         php artisan key:generate
+
     - name: Install node dependencies
       run: |
         npm install -g pnpm && pnpm install
         pnpm install
+
     - name: Build assets
       run: |
         pnpm build
+
+    - name: Migrate Database
+      run: |
+        php artisan migrate --force
+
     - name: Run Testsuite
       run: ./vendor/bin/pest --compact --group=feature
+
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
       if: failure()
