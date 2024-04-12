@@ -14,24 +14,22 @@ jobs:
     - name: Install composer dependencies
       run: |
         composer install --no-scripts
+    
+    - name: Install node dependencies
+      run: |
+        npm install -g pnpm && pnpm install
+        pnpm install
  
     - name: Prepare Laravel Application
       run: |
         cp .env.ci .env
         php artisan key:generate
-
-    - name: Install node dependencies
-      run: |
-        npm install -g pnpm && pnpm install
-        pnpm install
+        touch database/testing.sqlite
+        php artisan migrate --force
 
     - name: Build assets
       run: |
         pnpm build
-
-    - name: Migrate Database
-      run: |
-        php artisan migrate --force
 
     - name: Run Testsuite
       run: ./vendor/bin/pest --compact --group=feature
