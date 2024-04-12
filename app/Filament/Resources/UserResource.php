@@ -200,14 +200,6 @@ class UserResource extends Resource
                 IconEntry::make('status')->boolean(),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
-            ]),
-            SectionComponent::make([
-                ViewEntry::make('')
-                    ->view('infolists.components.user-role')
-            ]),
-            SectionComponent::make([
-                ViewEntry::make('')
-                    ->view('infolists.components.user-permission')
             ])
         ]);
     }

@@ -12,11 +12,21 @@ use Filament\Forms\Components\Select;
 use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\ViewRecord;
 use Spatie\Permission\Models\Permission;
+use Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource\RelationManager\RoleRelationManager;
+use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\RelationManager\PermissionRelationManager;
 
 class ViewUser extends ViewRecord
 {
     protected static string $resource = UserResource::class;
 
+    public function getRelationManagers(): array
+    {
+        return [
+            RoleRelationManager::class,
+            PermissionRelationManager::class
+        ];
+    }
+    
     protected function getHeaderActions(): array
     {
         return [
