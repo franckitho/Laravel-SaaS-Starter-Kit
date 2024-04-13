@@ -22,4 +22,15 @@ class EditUserFilament extends EditRecord
             ])->color('gray'),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $mutatedData = $data;
+
+        if ($mutatedData['password'] === null) {
+            unset($mutatedData['password']);
+        }
+    
+        return $mutatedData;
+    }
 }

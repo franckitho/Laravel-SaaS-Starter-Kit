@@ -52,8 +52,7 @@ class UserFilamentResource extends Resource
                             ->password()
                             ->autocomplete('new-password')
                             ->revealable()
-                            ->columnSpan(7)
-                            ->required(),
+                            ->columnSpan(7),
                     ])
                     ->columns(12)
                     ->columnSpanFull(),
