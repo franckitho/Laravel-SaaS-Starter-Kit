@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client\User;
-use App\Models\Filament\UserFilament;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Filament\UserFilament;
+use Illuminate\Support\Facades\Hash;
 
 class DevSeeder extends Seeder
 {
@@ -15,9 +15,9 @@ class DevSeeder extends Seeder
     public function run(): void
     {
         UserFilament::create([
-            'name' => 'franck',
-            'email' => 'contact@franckcolonna.fr',  
-            'password' => '$2y$10$jCYK/qcjCBOw5WmX/u2T/ecWDZ.FHdAu2lw.IX.o3rj2rKzZPQYoW',
+            'name' => 'username',
+            'email' => 'yourmail@domain.com',
+            'password' => Hash::make('password'),
         ]);
 
         User::factory(80)->create();
