@@ -43,4 +43,6 @@ test('can create user', function () {
     ])
     ->call('create')
     ->assertHasNoFormErrors();
+
+    $this->assertDatabaseHas('users', ['email' => 'test@test.test']);
 });
