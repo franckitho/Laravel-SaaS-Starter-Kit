@@ -67,8 +67,6 @@ return [
 
         'guard_names' => [
             'web',
-            'filament',
-            'api',
         ],
 
         'permission_affixes' => [

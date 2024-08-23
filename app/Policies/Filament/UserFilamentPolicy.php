@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\Filament;
 
 use Illuminate\Auth\Access\Response;
 use App\Models\Filament\UserFilament;
@@ -11,25 +11,25 @@ class UserFilamentPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(Mixed $user): bool
+    public function viewAny(UserFilament $user): bool
     {
-        return $user->checkPermissionTo('view-any UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.view-any');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Mixed $user, UserFilament $userfilament): bool
+    public function view(UserFilament $user, UserFilament $userfilament): bool
     {
-        return $user->checkPermissionTo('view UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.view');
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(Mixed $user): bool
+    public function create(UserFilament $user): bool
     {
-        return $user->checkPermissionTo('create UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class UserFilamentPolicy
      */
     public function update(Mixed $user, UserFilament $userfilament): bool
     {
-        return $user->checkPermissionTo('update UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.update');
     }
 
     /**
@@ -45,7 +45,7 @@ class UserFilamentPolicy
      */
     public function delete(Mixed $user, UserFilament $userfilament): bool
     {
-        return $user->checkPermissionTo('delete UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.delete');
     }
 
     /**
@@ -53,7 +53,7 @@ class UserFilamentPolicy
      */
     public function restore(Mixed $user, UserFilament $userfilament): bool
     {
-        return $user->checkPermissionTo('restore UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.restore');
     }
 
     /**
@@ -61,6 +61,6 @@ class UserFilamentPolicy
      */
     public function forceDelete(Mixed $user, UserFilament $userfilament): bool
     {
-        return $user->checkPermissionTo('force-delete UserFilament');
+        return $user->checkPermissionTo('filament.user-filament.force-delete');
     }
 }

@@ -12,7 +12,7 @@ class UserWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('users', User::count())
+            Stat::make('.env.example', User::count())
                 ->label('Users')
                 ->description('New users that have joined')
                 ->descriptionIcon('heroicon-o-arrow-trending-up')
@@ -24,7 +24,8 @@ class UserWidget extends BaseWidget
 
     public function getDataChart(): array
     {
-        $counts = User::selectRaw('COUNT(*) as count, DATE_FORMAT(created_at, "%Y-%m") as month')
+        // use DATE_FORMAT(created_at, "%Y-%m") for MySQL or strftime('%Y-%m', created_at) for SQLite
+        $counts = User::selectRaw("COUNT(*) as count, strftime('%Y-%m', created_at) as month")
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupBy('month')
             ->orderBy('month')
