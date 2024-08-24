@@ -14,13 +14,7 @@ class DevSeeder extends Seeder
      */
     public function run(): void
     {
-        UserFilament::create([
-            'name' => 'username',
-            'email' => 'yourmail@domain.com',
-            'password' => Hash::make('password'),
-        ]);
-
-        User::factory(80)->create();
+        User::factory(20)->create();
 
     }
 }
