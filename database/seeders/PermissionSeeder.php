@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Filament\UserFilament;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -66,6 +67,11 @@ class PermissionSeeder extends Seeder
         foreach ($rolePermissions as $roleName => $permissions) {
             $role = Role::findByName($roleName, 'filament');
             $role->syncPermissions($permissions);
+        }
+
+        if(UserFilament::first()) {
+            $user = UserFilament::first();
+            $user->assignRole('filament.admin');
         }
     }
 }
