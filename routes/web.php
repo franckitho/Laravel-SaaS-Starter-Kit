@@ -7,6 +7,7 @@ use App\Http\Middleware\AuthFilament;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,11 +18,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', UserStatus::class])->name('dashboard');
+Route::middleware('auth', 'verified', UserStatus::class)->group(function () {
 
-Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::prefix('subscription')->name('subscription.')->group(function () {
+        Route::get('plans', [SubscriptionController::class, 'create'])->name('create');
+        Route::post('process', [SubscriptionController::class, 'process'])->name('process');
+    });
+});
+
+Route::middleware('auth', UserStatus::class)->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

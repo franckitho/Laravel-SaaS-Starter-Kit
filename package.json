@@ -21,6 +21,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@stripe/stripe-js": "^4.3.0",
         "axios": "^1.6.8"
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Cashier\Billable;
 use Spatie\Permission\Models\Role;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Models\Permission;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, Billable;
 
     /**
      * The attributes that are mass assignable.
