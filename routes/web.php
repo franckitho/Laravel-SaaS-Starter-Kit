@@ -6,6 +6,7 @@ use App\Http\Middleware\UserStatus;
 use App\Http\Middleware\AuthFilament;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -36,7 +37,9 @@ Route::middleware('auth', UserStatus::class)->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('user/invoice/{invoiceId}', InvoiceController::class)->name('invoices.download');
 });
+
 Route::middleware(AuthFilament::class)->group(function () {
     Route::get('/filament/login-as/{user}', LoginAsUserAction::class)->name('login-as-user');
 });

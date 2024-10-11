@@ -107,6 +107,17 @@ return [
             // Supported: 'letter', 'legal', 'A4'
             'paper' => env('CASHIER_PAPER', 'letter'),
         ],
+    
+        'information' => [
+            'vendor' => env('CASHIER_VENDOR'),
+            'product' => env('CASHIER_PRODUCT'),
+            'street' => env('CASHIER_STREET'),
+            'location' => env('CASHIER_LOCATION'),
+            'phone' => env('CASHIER_PHONE'),
+            'email' => env('CASHIER_EMAIL'),
+            'url' => env('CASHIER_URL'),
+            'vendorVat' => env('CASHIER_VENDOR_VAT'),
+        ],
     ],
 
     /*

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class ProfileController extends Controller
 {
@@ -18,9 +19,22 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $invoices = $request->user()->invoices()->map(function ($invoice) {
+            return [
+                'id' => $invoice->id,
+                'plan' => $invoice->lines->data[0]->plan->nickname,
+                'pm'  =>  Str::of($invoice->owner()->pm_type)
+                                ->append(' (')
+                                ->append($invoice->owner()->pm_last_four)
+                                ->append(')'),
+                'date' => $invoice->date()->toFormattedDateString(),
+                'total' => $invoice->total(),
+            ];
+        });
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'invoices' => $invoices,
         ]);
     }
 
