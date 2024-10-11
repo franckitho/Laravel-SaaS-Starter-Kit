@@ -26,7 +26,9 @@ Route::middleware('auth', 'verified', UserStatus::class)->group(function () {
 
     Route::prefix('subscription')->name('subscription.')->group(function () {
         Route::get('plans', [SubscriptionController::class, 'create'])->name('create');
-        Route::post('process', [SubscriptionController::class, 'process'])->name('process');
+        Route::post('process', [SubscriptionController::class, 'store'])->name('process');
+        Route::delete('cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
+        Route::post('resume', [SubscriptionController::class, 'resume'])->name('resume');
     });
 });
 

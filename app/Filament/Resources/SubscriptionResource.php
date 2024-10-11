@@ -31,9 +31,6 @@ class SubscriptionResource extends Resource
                 TextColumn::make('id')
                     ->sortable(),
                 TextColumn::make('user.name'),
-                TextColumn::make('type')
-                    ->badge()
-                    ->color('info'),
                 TextColumn::make('stripe_id')
                     ->badge()
                     ->color('info'),
@@ -44,10 +41,12 @@ class SubscriptionResource extends Resource
                     ->badge()
                     ->color('info'),
                 TextColumn::make('quantity'),
-                TextColumn::make('trial_ends_at')
-                    ->dateTime(),
-                TextColumn::make('end_at')
-                    ->dateTime()
+                /* TextColumn::make('trial_ends_at')
+                    ->dateTime('m/d/y H:i'), */
+                TextColumn::make('ends_at')
+                    ->dateTime('m/d/y H:i'),
+                TextColumn::make('created_at')
+                    ->dateTime('m/d/y H:i'),
             ])
             ->filters([
                 //

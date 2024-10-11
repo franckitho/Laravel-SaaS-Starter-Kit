@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function process(ProcessPaymentRequest $request)
+    public function store(ProcessPaymentRequest $request)
     {
         $validated = $request->validated();
 
@@ -27,6 +27,20 @@ class SubscriptionController extends Controller
         auth()->user()->newSubscription(
             'default', $selectedProduct->stripe_product_id
         )->create($validated['payment_method']);
+
+        return Redirect::route('dashboard');
+    }
+
+    public function cancel()
+    {
+        auth()->user()->subscription()->cancel();
+
+        return Redirect::route('dashboard');
+    }
+
+    public function resume()
+    {
+        auth()->user()->subscription()->resume();
 
         return Redirect::route('dashboard');
     }
