@@ -8,6 +8,7 @@ use Filament\Resources\Resource;
 use Laravel\Cashier\Subscription;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\SubscriptionResource\Pages;
+use Faker\Provider\ar_EG\Text;
 
 class SubscriptionResource extends Resource
 {
@@ -30,6 +31,9 @@ class SubscriptionResource extends Resource
                 TextColumn::make('id')
                     ->sortable(),
                 TextColumn::make('user.name'),
+                TextColumn::make('type')
+                    ->badge()
+                    ->color('info'),
                 TextColumn::make('stripe_id')
                     ->badge()
                     ->color('info'),
@@ -40,9 +44,10 @@ class SubscriptionResource extends Resource
                     ->badge()
                     ->color('info'),
                 TextColumn::make('quantity'),
+                TextColumn::make('trial_ends_at')
+                    ->dateTime(),
                 TextColumn::make('end_at')
                     ->dateTime()
-
             ])
             ->filters([
                 //
