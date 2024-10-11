@@ -6,9 +6,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Laravel\Cashier\Subscription;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\SubscriptionResource\Pages;
-use Faker\Provider\ar_EG\Text;
 
 class SubscriptionResource extends Resource
 {
@@ -52,6 +52,24 @@ class SubscriptionResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('Invoice')
+                    ->label('')
+                    ->icon('heroicon-o-document')
+                    ->action(function(Subscription $subscription) {
+                        $pdf = $subscription->invoice()->download([
+                            'vendor'    => config('cashier.invoices.information.vendor'),
+                            'product'   => config('cashier.invoices.information.product'),
+                            'street'    => config('cashier.invoices.information.street'),
+                            'location'  => config('cashier.invoices.information.location'),
+                            'phone'     => config('cashier.invoices.information.phone'),
+                            'email'     => config('cashier.invoices.information.email'),
+                            'url'       => config('cashier.invoices.information.url'),
+                            'vendorVat' => config('cashier.invoices.information.vendorVat'),
+                        ]);
+                        return response()->streamDownload(function () use ($pdf) {
+                            echo $pdf;
+                        }, 'invoice_' . $subscription->stripe_price . '.pdf');
+                    }),
             ])
             ->bulkActions([
             ]);

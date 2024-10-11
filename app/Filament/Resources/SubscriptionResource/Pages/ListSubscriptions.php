@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\SubscriptionResource\Pages;
 
-use App\Filament\Resources\SubscriptionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\SubscriptionResource;
+use App\Filament\Resources\SubscriptionResource\Widgets\SubscriptionsChart;
+use App\Filament\Resources\SubscriptionResource\Widgets\SubscriptionsOverview;
 
 class ListSubscriptions extends ListRecords
 {
@@ -13,7 +15,15 @@ class ListSubscriptions extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            //
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            SubscriptionsOverview::class,
+            SubscriptionsChart::class,
         ];
     }
 }
