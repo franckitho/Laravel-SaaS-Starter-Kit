@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $invoices = $request->user()->invoices()->map(function ($invoice) {
             return [
                 'id' => $invoice->id,
-                'plan' => $invoice->lines->data[0]->plan->nickname,
+                'plan' => isset($invoice->lines->data[0]) ? $invoice->lines->data[0]->plan->nickname : 'N/A',
                 'pm'  =>  Str::of($invoice->owner()->pm_type)
                                 ->append(' (')
                                 ->append($invoice->owner()->pm_last_four)
