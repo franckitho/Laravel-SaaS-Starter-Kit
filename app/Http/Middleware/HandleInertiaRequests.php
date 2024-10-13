@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'subscription' => $request->user()->subscriptions()->active()->first(),
+                'subscription' => $request->user()?->subscriptions()?->active()->first(),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
