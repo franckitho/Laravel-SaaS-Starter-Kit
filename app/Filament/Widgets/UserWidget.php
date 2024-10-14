@@ -15,6 +15,8 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class DashboardOverviewWidget extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
     protected function getCards(): array
     {
         return [
@@ -124,15 +126,13 @@ class DashboardOverviewWidget extends BaseWidget
                 });
             });
 
-            // Calculer le nombre d'utilisateurs abonnés à ce produit
             $userCount = $subscribedUsers->count();
 
-            // Calculer le revenu total pour ce produit
             $totalRevenue = $userCount * $price;
 
             $mrr += $totalRevenue;
         });
-        // Retourner le MRR formaté en devise
+
         return $mrr;
     }
 
