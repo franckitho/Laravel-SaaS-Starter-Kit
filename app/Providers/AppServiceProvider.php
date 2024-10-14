@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Filament\UserFilament;
 use App\Policies\Filament\UserPolicy;
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(UserFilament::class, UserFilamentPolicy::class);
+
+        Cashier::calculateTaxes();
     }
 }
