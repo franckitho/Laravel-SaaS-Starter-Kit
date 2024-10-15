@@ -2,12 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use Carbon\Carbon;
 use App\Models\User;
-use Flowframe\Trend\Trend;
 use Laravel\Cashier\Cashier;
 use Illuminate\Support\Number;
-use Flowframe\Trend\TrendValue;
 use App\Models\Filament\Product;
 use Laravel\Cashier\Subscription;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -58,6 +55,7 @@ class DashboardOverviewWidget extends BaseWidget
 
         return $total;
     }
+
     /**
      * Calculate the conversion rate of users who have subscribed.
      *
@@ -112,14 +110,16 @@ class DashboardOverviewWidget extends BaseWidget
     {
         $products = Product::pluck('price', 'stripe_product_id');
         $date = now()->subMonths($monthOffset);
+        $startOfMonth = $date->copy()->startOfMonth();
+        $endOfMonth = $date->copy()->endOfMonth();
+        $mrr = 0;
 
-        $activeUsers = User::with('subscriptions')->whereHas('subscriptions', function ($query) use ($date) {
-            $query->active()->with('subscriptions')
-                ->whereMonth('created_at', $date->month)
-                ->whereYear('created_at', $date->year);
+        $activeUsers = User::with(['subscriptions' => function ($query) use ($startOfMonth, $endOfMonth) {
+            $query->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        }])->whereHas('subscriptions', function ($query) use ($startOfMonth, $endOfMonth) {
+            $query->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
         })->get();
         $products->each(function ($price, $stripeProductId) use (&$activeUsers, &$mrr) {
-
             $subscribedUsers = $activeUsers->filter(function ($user) use ($stripeProductId) {
                 return $user->subscriptions->contains(function ($subscription) use ($stripeProductId) {
                     return $subscription->stripe_price === $stripeProductId;
@@ -127,9 +127,7 @@ class DashboardOverviewWidget extends BaseWidget
             });
 
             $userCount = $subscribedUsers->count();
-
             $totalRevenue = $userCount * $price;
-
             $mrr += $totalRevenue;
         });
 
@@ -168,7 +166,7 @@ class DashboardOverviewWidget extends BaseWidget
      * If the revenue has increased, it returns an upward arrow icon.
      * If the revenue has decreased or stayed the same, it returns a downward arrow icon.
      *
-     * @return string The icon class name indicating the revenue trend.
+     * @return string The icon class OverviewWidget indicating the revenue trend.
      */
     protected function getMonthlyRecurringRevenueIcon(): string
     {

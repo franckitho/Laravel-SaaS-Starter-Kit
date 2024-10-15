@@ -19,6 +19,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Widgets\DashboardOverviewWidget;
+use App\Filament\Widgets\MonthlyRecurringRevenueChart;
+use App\Filament\Widgets\TotalRevenueChart;
+use Carbon\Month;
 
 class FilamentPanelProvider extends PanelProvider
 {
@@ -45,6 +48,8 @@ class FilamentPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 DashboardOverviewWidget::class,
+                MonthlyRecurringRevenueChart::class,
+                TotalRevenueChart::class,
             ])->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->middleware([
                 EncryptCookies::class,
