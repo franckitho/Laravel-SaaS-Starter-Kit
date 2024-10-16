@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@stripe/stripe-js": "^4.3.0",
-        "axios": "^1.6.8"
+        "axios": "^1.6.8",
+        "vite-plugin-static-copy": "^2.0.0"
     }
 }
