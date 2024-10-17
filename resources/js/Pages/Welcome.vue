@@ -1,6 +1,16 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import {
+    CheckIcon,
+    CreditCardIcon,
+    ChartBarSquareIcon,
+    LockClosedIcon,
+    CodeBracketIcon,
+    PencilSquareIcon,
+    UserCircleIcon
+} from '@heroicons/vue/24/solid';
+
 defineProps({
     canLogin: {
         type: Boolean,
@@ -49,12 +59,12 @@ function handleImageError() {
                             </a>
                             <a 
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" 
-                                href="#oui">
+                                href="#features">
                                 Features
                             </a>
                             <a 
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" 
-                                href="#oui">
+                                href="#pricing">
                                 Pricing
                             </a>
                             <a 
@@ -91,7 +101,7 @@ function handleImageError() {
                         </div>
                     </nav>
                     <section class="mt-8 md:mt-12 col-span-3">
-                        <div class="px-5 max-w-screen-xl mx-auto md:px-8 md:pt-16 md:pb-24 lg:pt-24 lg:pb-32 lg:px-16">
+                        <div class="px-5 max-w-screen-2xl mx-auto md:pt-16 md:pb-24 lg:pt-24 lg:pb-32">
                             <div class="w-full">
                                 <h1 
                                     class="md:w-1/2 md:pr-8 font-heading text-slate-900 font-black text-6xl"
@@ -123,24 +133,82 @@ function handleImageError() {
                 </header>
 
                 <main class="mt-6">
-                    <section class="grid grid-cols-5">
+                    <section class="grid grid-cols-5 max-w-screen-2xl mx-auto">
                         <div class="flex justify-center items-center">
-                        <img class="h-[50px]" src="https://spark.laravel.com/images/laravel.svg" alt="Laravel">
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <img class="h-[50px]" src="https://www.vectorlogo.zone/logos/vuejs/vuejs-ar21.svg" alt="Vue3">
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <img class="h-[50px]" src="https://i.ibb.co/GthBfqf/Sans-titre-2.png" alt="InertiaJs">
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <img class="h-[50px]" src="https://i.ibb.co/5BJdRSH/Sans-titre-1.png" alt="Filament">
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <img class="h-[50px]" src="https://hostbillapp.com/appstore/payment_stripe/images/thumbnails/m_logo.png" alt="Stripe">
-                    </div>
+                            <img class="h-[50px]" src="https://spark.laravel.com/images/laravel.svg" alt="Laravel">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <img class="h-[50px]" src="https://www.vectorlogo.zone/logos/vuejs/vuejs-ar21.svg" alt="Vue3">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <img class="h-[50px]" src="https://i.ibb.co/GthBfqf/Sans-titre-2.png" alt="InertiaJs">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <img class="h-[50px]" src="https://i.ibb.co/5BJdRSH/Sans-titre-1.png" alt="Filament">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <img class="h-[50px]" src="https://hostbillapp.com/appstore/payment_stripe/images/thumbnails/m_logo.png" alt="Stripe">
+                        </div>
                     </section>
-                    <section id="pricing" class="mt-12 w-full">
+                    <section id="features" class="mt-24 w-full max-w-screen-2xl mx-auto">
+                        <div class="flex w-full flex-col items-center justify-center">
+                            <h2 
+                                class="text-lg font-bold text-lime-500"
+                            >
+                                Features
+                            </h2>
+                            <p 
+                                class="text-4xl text-slate-800 font-black my-4"
+                            >
+                                All everything you need to build a SaaS application.
+                            </p>
+                            <p
+                                class="text-lg max-w-xl text-center"
+                            >
+                                Create a robust SaaS application with Seo friendly URLs, subscription plans, user management, and more. 
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-16 mt-16">
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <CreditCardIcon class="text-white size-6" />
+                                </div>
+                                <p><span class="font-bold">Subscriptions.</span> Define a monthly/yearly subscription, cancel, resume, upgrade your plan and more...</p>
+                            </div>
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <PencilSquareIcon class="text-white size-6" />
+                                </div>
+                                
+                                <p><span class="font-bold">Blog System.</span>  SEO-friendly blog system with built-in language translation features, designed to help you promote and grow your future idea.</p>
+                            </div>
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <LockClosedIcon class="text-white size-6" />
+                                </div>
+                                <p><span class="font-bold">Authentication.</span> Includes a dual-provider authentication system for both user and back office user, powered by Laravel Breeze.</p>
+                            </div>
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <ChartBarSquareIcon class="text-white size-6" />
+                                </div>
+                                <p><span class="font-bold">Analytics.</span> Back-office analytics system to track the financial performance of your SaaS.</p>
+                            </div>
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <CodeBracketIcon class="text-white size-6" />
+                                </div>
+                                <p><span class="font-bold">Developer friendly.</span> Staying true to Laravel and easily customizable to align with your vision and workflow.</p>
+                            </div>
+                            <div class="flex justify-center items-start space-x-4">
+                                <div class="bg-lime-500 p-2 rounded-lg">
+                                    <UserCircleIcon class="text-white size-6" />
+                                </div>
+                                <p><span class="font-bold">Open-Source.</span> Allowing the community to continuously improve it, ensuring a stronger foundation for ongoing development.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="pricing" class="w-full mt-24 max-w-screen-2xl mx-auto">
                         <div class="flex w-full flex-col items-center justify-center">
                             <h2 
                                 class="text-lg font-bold text-lime-500"
@@ -174,27 +242,19 @@ function handleImageError() {
                                 <p>The perfect plan if you're just getting started with our product.</p>
                                 <div class="flex flex-col mt-8">
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         25 Credit
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         Up to 10,000 subscribers
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         Advanced analytics
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         24-hour support response time
                                     </span>
                                 </div>
@@ -219,39 +279,27 @@ function handleImageError() {
                                 <p>Dedicated support and infrastructure for your company.</p>
                                 <div class="flex flex-col mt-8">
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         25 Credit
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         Up to 10,000 subscribers
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         Advanced analytics
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         24-hour support response time
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         Advanced analytics
                                     </span>
                                     <span class="flex">
-                                        <svg class="text-lime-500 size-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                        </svg>
+                                        <CheckIcon class="text-lime-500 size-6 mr-4" />
                                         24-hour support response time
                                     </span>
                                 </div>
