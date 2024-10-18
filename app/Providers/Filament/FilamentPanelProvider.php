@@ -2,15 +2,20 @@
 
 namespace App\Providers\Filament;
 
+use Carbon\Month;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
+use App\Filament\Widgets\TotalRevenueChart;
+use Filament\SpatieLaravelTranslatablePlugin;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use App\Filament\Widgets\DashboardOverviewWidget;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use App\Filament\Widgets\MonthlyRecurringRevenueChart;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -18,10 +23,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-use App\Filament\Widgets\DashboardOverviewWidget;
-use App\Filament\Widgets\MonthlyRecurringRevenueChart;
-use App\Filament\Widgets\TotalRevenueChart;
-use Carbon\Month;
 
 class FilamentPanelProvider extends PanelProvider
 {
@@ -50,7 +51,11 @@ class FilamentPanelProvider extends PanelProvider
                 DashboardOverviewWidget::class,
                 MonthlyRecurringRevenueChart::class,
                 TotalRevenueChart::class,
-            ])->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ])->plugins([
+                FilamentSpatieRolesPermissionsPlugin::make(),
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(['en', 'fr']),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

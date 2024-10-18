@@ -12,6 +12,9 @@ import {
 } from '@heroicons/vue/24/solid';
 
 defineProps({
+    posts: {
+        type: Array,
+    },
     canLogin: {
         type: Boolean,
     },
@@ -308,6 +311,39 @@ function handleImageError() {
                                 >
                                     Get started today
                                 </button>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="blog" class="w-full mt-24 max-w-screen-2xl mx-auto">
+                        <div class="flex w-full flex-col items-center justify-center">
+                            <h2 
+                                class="text-lg font-bold text-lime-500"
+                            >
+                                Blog
+                            </h2>
+                            <p 
+                                class="text-4xl text-slate-800 font-black my-4"
+                            >
+                                From the blog
+                            </p>
+                            <p
+                                class="text-lg max-w-xl text-center"
+                            >
+                                Learn how to grow your business with our expert advice.  
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-16 mt-16">
+                            <div 
+                                v-for="post in posts" v-bind:key="post.id"
+                                class="flex flex-col justify-center items-start"
+                            >
+                                <img class="h-64 w-full object-cover rounded-xl" :src="post.cover_url" :alt="post.cover_filename">
+                                <small class="mt-8">{{ post.created_at }}</small>
+                                <a :href="'/post/'+post.slug">
+                                    <h3 class="text-2xl text-slate-800 font-bold mt-4">{{ post.title.en }}</h3>
+                                </a>
+                                <p class="mt-8">{{ post.seo_description.en.slice(0, 185) }}...</p>
+                                <p class="mt-8 font-bold text-slate-800">{{ post.user_filament.name }}</p>
                             </div>
                         </div>
                     </section>

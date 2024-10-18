@@ -5,19 +5,15 @@ use App\Actions\LoginAsUserAction;
 use App\Http\Middleware\UserStatus;
 use App\Http\Middleware\AuthFilament;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [LandingController::class, 'index'])->name('welcome');
+Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::get('/post/{post:slug}', [PostController::class, 'show'])->name('post.show');
 
 Route::middleware('auth', 'verified', UserStatus::class)->group(function () {
 
