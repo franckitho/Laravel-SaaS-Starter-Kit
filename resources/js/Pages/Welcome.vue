@@ -37,7 +37,7 @@ function handleImageError() {
 </script>
 
 <template>
-    <Head title="SasS Starter landing page" />
+    <Head title="SaaS Starter landing page" />
     <div class="bg-slate-50 text-black/50">
         <div
             class="relative min-h-screen flex flex-col selection:bg-[#FF2D20] selection:text-white"
@@ -48,13 +48,13 @@ function handleImageError() {
                 >
                     <div class="flex items-center space-x-2">
                         <ApplicationLogo class="w-14 h-14 fill-current text-black" />
-                        <span class="text-slate-900 text-xl font-medium font-heading leading-6">SasS Starter</span>
+                        <span class="text-slate-900 text-xl font-medium font-heading leading-6">SaaS Starter</span>
                     </div>
                     <nav v-if="canLogin" class="hidden md:space-x-6 md:flex md:items-center col-span-2">
                         <div class="flex flex-1 justify-center md:space-x-6 md:flex md:items-center">
                             <a 
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" 
-                                href="#oui">
+                                href="#product">
                                 Product
                             </a>
                             <a 
@@ -100,13 +100,13 @@ function handleImageError() {
                             </template>
                         </div>
                     </nav>
-                    <section class="mt-8 md:mt-12 col-span-3">
+                    <section id="product" class="mt-8 md:mt-12 col-span-3">
                         <div class="px-5 max-w-screen-2xl mx-auto md:pt-16 md:pb-24 lg:pt-24 lg:pb-32">
                             <div class="w-full">
                                 <h1 
                                     class="md:w-1/2 md:pr-8 font-heading text-slate-900 font-black text-6xl"
                                 >
-                                    <span class="text-lime-500	">SasS</span><br> Starter Kit
+                                    <span class="text-lime-500	">SaaS</span><br> Starter Kit
                                 </h1>
                                 <p class="mt-6 md:w-1/2 text-slate-900 text-lg">
                                     A open source starter kit for building SaaS applications with Laravel, Vue 3 and InertiaJS.
