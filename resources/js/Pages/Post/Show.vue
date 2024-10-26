@@ -27,7 +27,11 @@ defineProps({
 </script>
 
 <template>
-    <Head title="SaaS Starter landing page" />
+    <Head>
+        <title>{{ post.title.en }}</title>
+        <meta name="description" :content="post.seo_description.en">
+        <meta name="keywords" :content="post.seo_keywords">
+    </Head>
     <div class="bg-slate-50 text-black/50">
         <div
             class="relative min-h-screen flex flex-col selection:bg-lime-500 selection:text-white"
