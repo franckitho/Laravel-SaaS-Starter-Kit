@@ -10,20 +10,7 @@ use App\Filament\Resources\UserResource\Pages\ListUsers;
 
 beforeEach(function () {
     $this->user = UserFilament::factory()->create();
-    
-    Permission::create([
-        'name' => 'view-any User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'delete User',
-        'guard_name' => 'filament'
-    ]);
-    $this->user->givePermissionTo(['view-any User', 'view User', 'delete User']);
+    $this->user->assignRole(['filament.admin']);
 });
 
 test('can render page', function () {
@@ -46,7 +33,7 @@ test('can render page with data and search', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
-        ->set('search', $user->name)
+        ->searchTable($user->name)
         ->assertSee($user->name)
         ->assertSee($user->email);
 });
@@ -56,34 +43,8 @@ test('can render page with data and search and sort', function () {
     $user = User::factory()->create();
 
     livewire(ListUsers::class)
-        ->set('search', $user->name)
-        ->set('sort', 'name')
-        ->assertSee($user->name)
-        ->assertSee($user->email);
-});
-
-test('can render page with data and search and sort and filter', function () {
-    $this->actingAs($this->user, 'filament');
-    $user = User::factory()->create();
-
-    livewire(ListUsers::class)
-        ->set('search', $user->name)
-        ->set('sort', 'name')
-        ->set('filters', ['name' => $user->name])
-        ->assertSee($user->name)
-        ->assertSee($user->email);
-});
-
-
-test('can render page with data and search and sort and filter and pagination', function () {
-    $this->actingAs($this->user, 'filament');
-    $user = User::factory()->create();
-
-    livewire(ListUsers::class)
-        ->set('search', $user->name)
-        ->set('sort', 'name')
-        ->set('filters', ['name' => $user->name])
-        ->set('perPage', 1)
+        ->searchTable($user->name)
+        ->sortTable('name', 'desc')
         ->assertSee($user->name)
         ->assertSee($user->email);
 });

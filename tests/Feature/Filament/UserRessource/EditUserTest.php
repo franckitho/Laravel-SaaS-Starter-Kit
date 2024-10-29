@@ -9,19 +9,7 @@ use App\Filament\Resources\UserResource\Pages\EditUser;
 
 beforeEach(function () {
     $this->user = UserFilament::factory()->create();
-    Permission::create([
-        'name' => 'update User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view-any User',
-        'guard_name' => 'filament'
-    ]);
-    $this->user->givePermissionTo(['update User', 'view User', 'view-any User']);
+    $this->user->assignRole(['filament.admin']);
 });
 
 test('can render page', function () {

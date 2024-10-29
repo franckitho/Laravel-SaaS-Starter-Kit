@@ -3,24 +3,11 @@
 use function Pest\Livewire\livewire;
 
 use App\Models\Filament\UserFilament;
-use Spatie\Permission\Models\Permission;
 use App\Filament\Resources\UserFilamentResource\Pages\CreateUserFilament;
 
 beforeEach(function () {
     $this->user = UserFilament::factory()->create();
-    Permission::create([
-        'name' => 'create UserFilament',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view UserFilament',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view-any UserFilament',
-        'guard_name' => 'filament'
-    ]);
-    $this->user->givePermissionTo(['create UserFilament', 'view UserFilament', 'view-any UserFilament']);
+    $this->user->assignRole(['filament.admin']);
 });
 
 test('can render page', function () {

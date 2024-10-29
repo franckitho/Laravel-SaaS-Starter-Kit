@@ -14,7 +14,12 @@ use Tests\TestCase;
 |
 */
 
-uses(TestCase::class, RefreshDatabase::class)->group('feature')->in('Feature');
+uses(
+    TestCase::class, 
+    RefreshDatabase::class
+)->beforeEach(fn() => $this->seed(\Database\Seeders\DatabaseSeeder::class))
+->group('feature')
+->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

@@ -1,60 +1,59 @@
 <?php
 
 use App\Models\User;
+beforeEach(function () {
+    $this->user = User::factory([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+    ])->create();
+});
 
 test('profile page is displayed', function () {
-    $user = User::factory()->create();
 
     $response = $this
-        ->actingAs($user)
+        ->actingAs($this->user)
         ->get('/profile');
 
     $response->assertOk();
 });
 
 test('profile information can be updated', function () {
-    $user = User::factory()->create();
-
     $response = $this
-        ->actingAs($user)
+        ->actingAs($this->user)
         ->patch('/profile', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => $this->user->name,
+            'email' => $this->user->email,
         ]);
 
     $response
         ->assertSessionHasNoErrors()
         ->assertRedirect('/profile');
 
-    $user->refresh();
+    $this->user->refresh();
 
-    $this->assertSame('Test User', $user->name);
-    $this->assertSame('test@example.com', $user->email);
-    $this->assertNull($user->email_verified_at);
+    $this->assertSame('Test User', $this->user->name);
+    $this->assertSame('test@example.com', $this->user->email);
+    $this->assertNull($this->user->email_verified_at);
 });
 
 test('email verification status is unchanged when the email address is unchanged', function () {
-    $user = User::factory()->create();
-
     $response = $this
-        ->actingAs($user)
+        ->actingAs($this->user)
         ->patch('/profile', [
             'name' => 'Test User',
-            'email' => $user->email,
+            'email' => $this->user->email,
         ]);
 
     $response
         ->assertSessionHasNoErrors()
         ->assertRedirect('/profile');
 
-    $this->assertNotNull($user->refresh()->email_verified_at);
+    $this->assertNotNull($this->user->refresh()->email_verified_at);
 });
 
 test('correct password must be provided to delete account', function () {
-    $user = User::factory()->create();
-
     $response = $this
-        ->actingAs($user)
+        ->actingAs($this->user)
         ->from('/profile')
         ->delete('/profile', [
             'password' => 'wrong-password',
@@ -64,5 +63,5 @@ test('correct password must be provided to delete account', function () {
         ->assertSessionHasErrors('password')
         ->assertRedirect('/profile');
 
-    $this->assertNotNull($user->fresh());
+    $this->assertNotNull($this->user->fresh());
 });

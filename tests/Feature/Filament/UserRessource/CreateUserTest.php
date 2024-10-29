@@ -8,19 +8,7 @@ use App\Filament\Resources\UserResource\Pages\CreateUser;
 
 beforeEach(function () {
     $this->user = UserFilament::factory()->create();
-    Permission::create([
-        'name' => 'create User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view User',
-        'guard_name' => 'filament'
-    ]);
-    Permission::create([
-        'name' => 'view-any User',
-        'guard_name' => 'filament'
-    ]);
-    $this->user->givePermissionTo(['create User', 'view User', 'view-any User']);
+    $this->user->assignRole(['filament.admin']);
 });
 
 test('can render page', function () {
