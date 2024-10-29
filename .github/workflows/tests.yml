@@ -4,7 +4,7 @@ jobs:
   feature:
     runs-on: ubuntu-latest
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.2
+      image: kirschbaumdevelopment/laravel-test-runner:8.3
  
     steps:
     - uses: actions/checkout@v1
@@ -35,7 +35,7 @@ jobs:
       run: ./vendor/bin/pest --compact --group=feature
 
     - name: Upload Test Results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: test-results

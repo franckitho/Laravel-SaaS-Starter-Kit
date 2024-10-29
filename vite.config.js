@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import laravel, { refreshPaths } from 'laravel-vite-plugin'
 import vue from '@vitejs/plugin-vue'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+//import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
     plugins: [
@@ -25,13 +25,13 @@ export default defineConfig({
                 },
             },
         }),
-        viteStaticCopy({
+        /*viteStaticCopy({
             targets: [
                 {
                     src: './resources/assets/images',
                     dest: './public/images',
                 }
             ]
-        })
+        })*/
     ],
 })
