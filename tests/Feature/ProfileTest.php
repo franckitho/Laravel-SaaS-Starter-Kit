@@ -5,6 +5,7 @@ beforeEach(function () {
     $this->user = User::factory([
         'name' => 'Test User',
         'email' => 'test@example.com',
+        'status' => true,
     ])->create();
 });
 
@@ -21,8 +22,8 @@ test('profile information can be updated', function () {
     $response = $this
         ->actingAs($this->user)
         ->patch('/profile', [
-            'name' => $this->user->name,
-            'email' => $this->user->email,
+            'name' => 'Test User Updated',
+            'email' => 'change@example.com',
         ]);
 
     $response
@@ -31,8 +32,8 @@ test('profile information can be updated', function () {
 
     $this->user->refresh();
 
-    $this->assertSame('Test User', $this->user->name);
-    $this->assertSame('test@example.com', $this->user->email);
+    $this->assertSame('Test User Updated', $this->user->name);
+    $this->assertSame('change@example.com', $this->user->email);
     $this->assertNull($this->user->email_verified_at);
 });
 
