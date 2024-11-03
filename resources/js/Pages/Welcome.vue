@@ -340,9 +340,9 @@ function handleImageError() {
                                 <img class="h-64 w-full object-cover rounded-xl" :src="post.cover_url" :alt="post.cover_filename">
                                 <small class="mt-8">{{ post.created_at }}</small>
                                 <a :href="'/post/'+post.slug">
-                                    <h3 class="text-2xl text-slate-800 font-bold mt-4">{{ post.title.en }}</h3>
+                                    <h3 class="text-2xl text-slate-800 font-bold mt-4 hover:text-slate-600">{{ post.title[$page.props.lang] }}</h3>
                                 </a>
-                                <p class="mt-8">{{ post.seo_description.en.slice(0, 185) }}...</p>
+                                <p class="mt-8">{{ post.seo_description[$page.props.lang].slice(0, 185) }}...</p>
                                 <p class="mt-8 font-bold text-slate-800">{{ post.user_filament.name }}</p>
                             </div>
                         </div>

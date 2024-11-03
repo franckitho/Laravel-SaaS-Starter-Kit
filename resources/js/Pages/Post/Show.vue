@@ -28,8 +28,8 @@ defineProps({
 
 <template>
     <Head>
-        <title>{{ post.title.en }}</title>
-        <meta name="description" :content="post.seo_description.en">
+        <title>{{ post.title[$page.props.lang] }}</title>
+        <meta name="description" :content="post.seo_description[$page.props.lang]">
         <meta name="keywords" :content="post.seo_keywords">
     </Head>
     <div class="bg-slate-50 text-black/50">
@@ -88,8 +88,8 @@ defineProps({
                             <p class="mr-1">{{ post.created_at }} -</p>
                             <p>{{ post.user_filament.name }}</p>
                         </div>
-                        <h1>{{ post.title.en }}</h1>
-                        <div v-html="markdown.render(post.content.en)"></div>
+                        <h1>{{ post.title[$page.props.lang] }}</h1>
+                        <div v-html="markdown.render(post.content[$page.props.lang])"></div>
                     </div>
                 </main>
 
